@@ -14,27 +14,32 @@ namespace Exo.WebApi.Repositories
             _context = context;
         }
 
+        // Faz login por e-mail e senha.
         public Usuario Login(string email, string senha)
         {
             return _context.Usuarios.FirstOrDefault(u => u.Email == email && u.Senha == senha);
         }
 
+        // Lista todos os usuarios.
         public List<Usuario> Listar()
         {
             return _context.Usuarios.ToList();
         }
 
+        // Cadastra um novo usuario.
         public void Cadastrar(Usuario usuario)
         {
             _context.Usuarios.Add(usuario);
             _context.SaveChanges();
         }
 
+        // Busca usuario por id.
         public Usuario BuscaPorId(int id)
         {
             return _context.Usuarios.Find(id);
         }
 
+        // Atualiza dados de usuario.
         public void Atualizar(int id, Usuario usuario)
         {
             Usuario usuarioBuscado = _context.Usuarios.Find(id);
@@ -43,19 +48,22 @@ namespace Exo.WebApi.Repositories
             {
                 usuarioBuscado.Email = usuario.Email;
                 usuarioBuscado.Senha = usuario.Senha;
+                
+                _context.Usuarios.Update(usuarioBuscado);
+                _context.SaveChanges();
             }
-
-            _context.Usuarios.Update(usuarioBuscado);
-            _context.SaveChanges();
         }
 
+        // Deleta usuario pelo id.
         public void Deletar(int id)
         {
             Usuario usuarioBuscado = _context.Usuarios.Find(id);
-            _context.Usuarios.Remove(usuarioBuscado);
-            _context.SaveChanges();
-        }
 
+            if (usuarioBuscado != null)
+            {
+                _context.Usuarios.Remove(usuarioBuscado);
+                _context.SaveChanges();
+            }
+        }
     }
 }
-

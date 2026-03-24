@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exo Projetos - Painel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>Exo Projetos</h1>
+      <p>Painel simples para consultar e cadastrar projetos na API.</p>
+    </header>
+
+    <section class="card">
+      <h2>Cadastrar projeto</h2>
+      <form id="project-form">
+        <div class="field">
+          <label for="nomeDoProjeto">Nome do projeto</label>
+          <input id="nomeDoProjeto" name="nomeDoProjeto" type="text" required maxlength="120" />
+        </div>
+
+        <div class="field">
+          <label for="area">Area</label>
+          <input id="area" name="area" type="text" required maxlength="80" />
+        </div>
+
+        <div class="checkbox-row">
+          <input id="status" name="status" type="checkbox" />
+          <label for="status">Projeto ativo</label>
+        </div>
+
+        <button type="submit">Salvar projeto</button>
+      </form>
+      <p id="form-message" class="message"></p>
+    </section>
+
+    <section class="card">
+      <div class="list-title">
+        <h2>Projetos cadastrados</h2>
+        <button id="reload-btn" class="secondary" type="button">Atualizar lista</button>
+      </div>
+      <div id="loading" class="loading">Carregando...</div>
+      <ul id="project-list" class="project-list"></ul>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

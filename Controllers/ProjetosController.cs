@@ -1,6 +1,5 @@
 using Exo.WebApi.Models;
 using Exo.WebApi.Repositories;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -11,17 +10,20 @@ namespace Exo.WebApi.Controllers
     public class ProjetosController : ControllerBase
     {
         private readonly ProjetoRepository _projetoRepository;
+
         public ProjetosController(ProjetoRepository projetoRepository)
         {
             _projetoRepository = projetoRepository;
         }
 
+        // GET: api/projetos
         [HttpGet]
         public IActionResult Listar()
         {
             return Ok(_projetoRepository.Listar());
         }
 
+        // POST: api/projetos
         [HttpPost]
         public IActionResult Cadastrar(Projeto projeto)
         {
@@ -29,17 +31,21 @@ namespace Exo.WebApi.Controllers
             return StatusCode(201);
         }
 
+        // GET: api/projetos/{id}
         [HttpGet("{id}")]
         public IActionResult BuscarPorId(int id)
         {
             Projeto projeto = _projetoRepository.BuscarporId(id);
+
             if (projeto == null)
             {
                 return NotFound();
             }
+
             return Ok(projeto);
         }
 
+        // PUT: api/projetos/{id}
         [HttpPut("{id}")]
         public IActionResult Atualizar(int id, Projeto projeto)
         {
@@ -47,6 +53,7 @@ namespace Exo.WebApi.Controllers
             return StatusCode(204);
         }
 
+        // DELETE: api/projetos/{id}
         [HttpDelete("{id}")]
         public IActionResult Deletar(int id)
         {
@@ -55,7 +62,7 @@ namespace Exo.WebApi.Controllers
                 _projetoRepository.Deletar(id);
                 return StatusCode(204);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return BadRequest();
             }
